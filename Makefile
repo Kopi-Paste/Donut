@@ -1,9 +1,9 @@
 CXX=g++
 LD=g++
-CXXFLAGS=-Wall -pedantic -Wextra
+CXXFLAGS=-Wall -pedantic -Wextra -std=c++17
 LDFLAGS=-lGLEW -lSDL2 -lGL
 
-donut.out: Display.o Main.o
+donut.out: Display.o Main.o Shader.o Statics.o
 	$(LD) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 %.o: %.cpp
