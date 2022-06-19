@@ -8,6 +8,7 @@
 #include "Shader.hpp"
 #include "Mesh.hpp"
 #include "Vertex.hpp"
+#include "Texture.hpp"
 
 int main()
 {
@@ -19,12 +20,16 @@ int main()
 
     Mesh mesh(vertices);
 
+    Texture texture("Donut-Texture.png");
+
     while (!mainScreen.isClosed)
     {
         glClearColor(0.32f, 0.15f, 0.21f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         shader.Bind();
+
+        texture.Bind(0);
 
         mesh.Draw();
 
