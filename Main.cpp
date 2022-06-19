@@ -16,7 +16,7 @@ int main()
 
     Shader shader("./basicshader");
 
-    std::vector<Vertex> vertices = { Vertex(glm::vec3(-0.5, -0.5, 0)), Vertex(glm::vec3(0, 0.5, 0)), Vertex(glm::vec3(-0.5, 0.5, 0))};
+    std::vector<Vertex> vertices = { Vertex(glm::vec3(-0.5, -0.5, 0), glm::vec2(0.0, 0.0)), Vertex(glm::vec3(0, 0.5, 0), glm::vec2(0.5, 1.0)), Vertex(glm::vec3(-0.5, 0.5, 0), glm::vec2(1.0, 0.0))};
 
     Mesh mesh(vertices);
 

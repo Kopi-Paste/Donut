@@ -24,6 +24,7 @@ class Mesh
     enum 
     {
         POSITION_BUFFER,
+        TEXTURE_COORD_BUFFER,
         NUM_BUFFERS
     };
 
