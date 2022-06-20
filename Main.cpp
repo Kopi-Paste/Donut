@@ -9,6 +9,7 @@
 #include "Mesh.hpp"
 #include "Vertex.hpp"
 #include "Texture.hpp"
+#include "Transform.hpp"
 
 int main()
 {
@@ -22,18 +23,35 @@ int main()
 
     Texture texture("Donut-Texture.png");
 
+    Transform transform;
+
+    float counter = 0.0f;
+
     while (!mainScreen.isClosed)
     {
+
+        float sinCounter = sinf(counter);
+        float cosCounter = cosf(counter);
+
         glClearColor(0.32f, 0.15f, 0.21f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        transform.position.x = sinCounter;
+        transform.rotation.x = counter * 50;
+        transform.scale = glm::vec3(cosCounter, cosCounter, cosCounter);
+
         shader.Bind();
+        shader.Update(transform);
 
         texture.Bind(0);
 
         mesh.Draw();
 
         mainScreen.Update();
+
+        counter += 0.01f;
+        if (counter > 100.0f)
+            counter = 0.0f;
     }
 
     return 0;

@@ -4,6 +4,9 @@
 
 #include <GL/glew.h>
 
+#include "Transform.hpp"
+
+
 class Shader
 {
     public:
@@ -15,6 +18,8 @@ class Shader
 
     void Bind();
 
+    void Update(const Transform & transform);
+
     private:
 
     static void checkShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string & errorMessage);
@@ -24,6 +29,13 @@ class Shader
     static const int numShaders = 2;
 
 
+    enum Uniforms
+    {
+        TRANSFORM_UNIFORM,
+        NUM_UNIFORMS
+    };
+
     GLuint program;
     GLuint shaders[numShaders];
+    GLuint uniforms[NUM_UNIFORMS];
 };

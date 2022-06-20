@@ -1,8 +1,11 @@
 #include <string>
 #include <iostream>
 
+#include <glm/glm.hpp>
+
 #include "Shader.hpp"
 #include "Statics.hpp"
+#include "Transform.hpp"
 
 Shader::Shader(const std::string & filename)
 {
@@ -21,6 +24,8 @@ Shader::Shader(const std::string & filename)
 
     glValidateProgram(program);
     checkShaderError(program, GL_VALIDATE_STATUS, true, "Program is invalid");
+
+    uniforms[TRANSFORM_UNIFORM] = glGetUniformLocation(program, "transform");
 }
 
 Shader::~Shader()
@@ -36,6 +41,12 @@ Shader::~Shader()
 void Shader::Bind()
 {
     glUseProgram(program);
+}
+
+void Shader::Update(const Transform & transform)
+{
+    glm::mat4 model = transform.getModel();
+    glUniformMatrix4fv(uniforms[TRANSFORM_UNIFORM], 1, GL_FALSE, &(model[0][0]));
 }
 
 void Shader::checkShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string & errorMessage)
