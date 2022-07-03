@@ -14,6 +14,7 @@ Display::Display(int width_arg, int height_arg, const std::string & title) : wid
     SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 
@@ -26,6 +27,11 @@ Display::Display(int width_arg, int height_arg, const std::string & title) : wid
         std::cerr << "Glew failed" << std::endl;
 
     isClosed = false;
+
+    glEnable(GL_DEPTH_TEST);
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
 }
 
 Display::~Display()
@@ -33,6 +39,12 @@ Display::~Display()
     SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
     SDL_Quit();
+}
+
+void Display::Clear(float r, float g, float b, float a)
+{
+    glClearColor(r, g, b, a);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Display::Update()

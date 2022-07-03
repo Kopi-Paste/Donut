@@ -20,30 +20,32 @@ int main()
 
     std::vector<Vertex> vertices = { Vertex(glm::vec3(-0.5, -0.5, 0), glm::vec2(0.0, 0.0)), Vertex(glm::vec3(0, 0.5, 0), glm::vec2(0.5, 1.0)), Vertex(glm::vec3(-0.5, 0.5, 0), glm::vec2(1.0, 0.0))};
 
-    Mesh mesh(vertices);
+    std::vector<unsigned int> indicies = { 0, 1, 2};
 
-    Texture texture("Donut-Texture.png");
+    Mesh monkey("monkey3.obj");
+
+    Texture texture("bricks.jpg");
 
     Transform transform;
 
-    Camera camera(glm::vec3(0, 0, -1), 80.0f, (float)mainScreen.width / (float)mainScreen.height, 0.01f, 1000.0f);
+    Camera camera(glm::vec3(0, 0, -3.0f), 80.0f, (float)mainScreen.width / (float)mainScreen.height, 0.01f, 1000.0f);
 
     float counter = 0.0f;
 
     while (!mainScreen.isClosed)
     {
+        mainScreen.Clear(0.32f, 0.15f, 0.21f, 1.0f);
+
 
         float sinCounter = sinf(counter);
         float cosCounter = cosf(counter);
 
-        glClearColor(0.32f, 0.15f, 0.21f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
 
-        transform.position.x = sinCounter;
-        transform.position.z = cosCounter;
-        transform.rotation.x = counter * 2;
-        transform.rotation.y = counter * 2;
-        transform.rotation.z = counter * 2;
+        transform.position.x = sinCounter / 100;
+        transform.position.z = cosCounter / 100;
+        transform.rotation.x = counter * 5;
+        transform.rotation.y = counter * 5;
+        transform.rotation.z = counter * 5;
 
 
         shader.Bind();
@@ -51,7 +53,7 @@ int main()
 
         texture.Bind(0);
 
-        mesh.Draw();
+        monkey.Draw();
 
         mainScreen.Update();
 

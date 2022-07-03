@@ -1,4 +1,4 @@
-include "obj_loader.h"
+#include "obj_loader.hpp"
 #include <fstream>
 #include <iostream>
 #include <algorithm>
@@ -101,12 +101,12 @@ IndexedModel OBJModel::ToIndexedModel()
         glm::vec2 currentTexCoord;
         glm::vec3 currentNormal;
         
-        if(hasUVs)
+        if(uvs.size())
             currentTexCoord = uvs[currentIndex->uvIndex];
         else
             currentTexCoord = glm::vec2(0,0);
             
-        if(hasNormals)
+        if(normals.size())
             currentNormal = normals[currentIndex->normalIndex];
         else
             currentNormal = glm::vec3(0,0,0);
@@ -147,7 +147,7 @@ IndexedModel OBJModel::ToIndexedModel()
         indexMap.insert(std::pair<unsigned int, unsigned int>(resultModelIndex, normalModelIndex));
     }
     
-    if(!hasNormals)
+    if(!normals.size())
     {
         normalModel.CalcNormals();
         
@@ -156,7 +156,7 @@ IndexedModel OBJModel::ToIndexedModel()
     }
     
     return result;
-};
+}
 
 unsigned int OBJModel::FindLastVertexIndex(const std::vector<OBJIndex*>& indexLookup, const OBJIndex* currentIndex, const IndexedModel& result)
 {
@@ -195,19 +195,19 @@ unsigned int OBJModel::FindLastVertexIndex(const std::vector<OBJIndex*>& indexLo
                     
                 if(possibleIndex->vertexIndex != currentIndex->vertexIndex)
                     break;
-                else if((!hasUVs || possibleIndex->uvIndex == currentIndex->uvIndex) 
-                    && (!hasNormals || possibleIndex->normalIndex == currentIndex->normalIndex))
+                else if((!uvs.size() || possibleIndex->uvIndex == currentIndex->uvIndex) 
+                    && (!normals.size() || possibleIndex->normalIndex == currentIndex->normalIndex))
                 {
                     glm::vec3 currentPosition = vertices[currentIndex->vertexIndex];
                     glm::vec2 currentTexCoord;
                     glm::vec3 currentNormal;
                     
-                    if(hasUVs)
+                    if(uvs.size())
                         currentTexCoord = uvs[currentIndex->uvIndex];
                     else
                         currentTexCoord = glm::vec2(0,0);
                         
-                    if(hasNormals)
+                    if(normals.size())
                         currentNormal = normals[currentIndex->normalIndex];
                     else
                         currentNormal = glm::vec3(0,0,0);
@@ -215,8 +215,8 @@ unsigned int OBJModel::FindLastVertexIndex(const std::vector<OBJIndex*>& indexLo
                     for(unsigned int j = 0; j < result.positions.size(); j++)
                     {
                         if(currentPosition == result.positions[j] 
-                            && ((!hasUVs || currentTexCoord == result.texCoords[j])
-                            && (!hasNormals || currentNormal == result.normals[j])))
+                            && ((!uvs.size() || currentTexCoord == result.texCoords[j])
+                            && (!normals.size() || currentNormal == result.normals[j])))
                         {
                             return j;
                         }

@@ -4,6 +4,7 @@
 
 #include <GL/glew.h>
 
+#include "obj_loader.hpp"
 #include "Vertex.hpp"
 
 
@@ -11,7 +12,8 @@ class Mesh
 {
     public:
 
-    Mesh(std::vector<Vertex> vertices);
+    Mesh(const std::vector<Vertex> & vertices, const std::vector<unsigned int> & indicies);
+    Mesh(const std::string & fileName);
     ~Mesh();
 
     Mesh(const Mesh &) = delete;
@@ -25,6 +27,7 @@ class Mesh
     {
         POSITION_BUFFER,
         TEXTURE_COORD_BUFFER,
+        INDEX_BUFFER,
         NUM_BUFFERS
     };
 

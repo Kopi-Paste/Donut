@@ -14,6 +14,7 @@ class Display
         Display & operator =(const Display & other) = delete;
 
         void Update();
+        void Clear(float r, float g, float b, float a);
 
         const int width;
         const int height;        
