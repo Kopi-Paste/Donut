@@ -5,7 +5,7 @@
 
 #include "Display.hpp"
 
-Display::Display(int width, int height, const std::string & title)
+Display::Display(int width_arg, int height_arg, const std::string & title) : width(width_arg), height(height_arg)
 {
     SDL_Init(SDL_INIT_EVERYTHING);
 

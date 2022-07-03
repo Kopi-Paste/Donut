@@ -10,6 +10,7 @@
 #include "Vertex.hpp"
 #include "Texture.hpp"
 #include "Transform.hpp"
+#include "Camera.hpp"
 
 int main()
 {
@@ -25,6 +26,8 @@ int main()
 
     Transform transform;
 
+    Camera camera(glm::vec3(0, 0, -1), 80.0f, (float)mainScreen.width / (float)mainScreen.height, 0.01f, 1000.0f);
+
     float counter = 0.0f;
 
     while (!mainScreen.isClosed)
@@ -37,11 +40,14 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
 
         transform.position.x = sinCounter;
-        transform.rotation.x = counter * 50;
-        transform.scale = glm::vec3(cosCounter, cosCounter, cosCounter);
+        transform.position.z = cosCounter;
+        transform.rotation.x = counter * 2;
+        transform.rotation.y = counter * 2;
+        transform.rotation.z = counter * 2;
+
 
         shader.Bind();
-        shader.Update(transform);
+        shader.Update(transform, camera);
 
         texture.Bind(0);
 
@@ -49,7 +55,7 @@ int main()
 
         mainScreen.Update();
 
-        counter += 0.01f;
+        counter += 0.001f;
         if (counter > 100.0f)
             counter = 0.0f;
     }

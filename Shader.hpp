@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 
 #include "Transform.hpp"
+#include "Camera.hpp"
 
 
 class Shader
@@ -18,7 +19,7 @@ class Shader
 
     void Bind();
 
-    void Update(const Transform & transform);
+    void Update(const Transform & transform, const Camera & camera);
 
     private:
 

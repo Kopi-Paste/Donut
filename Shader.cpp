@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 
+#include "Camera.hpp"
 #include "Shader.hpp"
 #include "Statics.hpp"
 #include "Transform.hpp"
@@ -43,9 +44,9 @@ void Shader::Bind()
     glUseProgram(program);
 }
 
-void Shader::Update(const Transform & transform)
+void Shader::Update(const Transform & transform, const Camera & camera)
 {
-    glm::mat4 model = transform.getModel();
+    glm::mat4 model = camera.getViewProjection() * transform.getModel();
     glUniformMatrix4fv(uniforms[TRANSFORM_UNIFORM], 1, GL_FALSE, &(model[0][0]));
 }
 

@@ -15,8 +15,10 @@ class Display
 
         void Update();
 
+        const int width;
+        const int height;        
+
     private:
         SDL_Window * window;
         SDL_GLContext context;
-
 };
