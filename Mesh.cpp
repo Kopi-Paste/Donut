@@ -51,12 +51,6 @@ Mesh::Mesh(const std::string & fileName)
 {
     OBJModel oModel = OBJModel(fileName);
 
-    std::cerr << fileName << " : " << oModel.OBJIndices.size() << std::endl;
-    std::cerr << fileName << " : " << oModel.uvs.size() << std::endl;
-    std::cerr << fileName << " : " << oModel.vertices.size() << std::endl;
-    std::cerr << fileName << " : " << (oModel.hasUVs ? "true" : "false") << std::endl;
-
-
     IndexedModel model = oModel.ToIndexedModel();
 
     drawCount = model.indices.size();

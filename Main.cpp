@@ -14,7 +14,7 @@
 
 int main()
 {
-    Display mainScreen(800, 600, "Donut");
+    Display mainScreen(1240, 1080, "Donut");
 
     Shader shader("./basicshader");
 
@@ -22,13 +22,17 @@ int main()
 
     std::vector<unsigned int> indicies = { 0, 1, 2};
 
-    Mesh monkey("monkey3.obj");
+    Mesh dough("dough.obj");
 
-    Texture texture("bricks.jpg");
+    Mesh icing("icing.obj");
+
+    Texture doughT("dough-texture.jpg");
+
+    Texture icingT("icing-texture.jpg");
 
     Transform transform;
 
-    Camera camera(glm::vec3(0, 0, -3.0f), 80.0f, (float)mainScreen.width / (float)mainScreen.height, 0.01f, 1000.0f);
+    Camera camera(glm::vec3(0, 0, -0.1f), 80.0f, (float)mainScreen.width / (float)mainScreen.height, 0.01f, 1000.0f);
 
     float counter = 0.0f;
 
@@ -43,17 +47,21 @@ int main()
 
         transform.position.x = sinCounter / 100;
         transform.position.z = cosCounter / 100;
-        transform.rotation.x = counter * 5;
-        transform.rotation.y = counter * 5;
-        transform.rotation.z = counter * 5;
+        transform.rotation.x = counter * 10;
+        transform.rotation.y = counter * 10;
+        transform.rotation.z = counter * 10;
 
 
         shader.Bind();
         shader.Update(transform, camera);
 
-        texture.Bind(0);
+        doughT.Bind(0);
 
-        monkey.Draw();
+        dough.Draw();
+
+        icingT.Bind(0);
+
+        icing.Draw();
 
         mainScreen.Update();
 
