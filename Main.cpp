@@ -11,6 +11,7 @@
 #include "Texture.hpp"
 #include "Transform.hpp"
 #include "Camera.hpp"
+#include "Statics.hpp"
 
 int main()
 {
@@ -32,25 +33,11 @@ int main()
 
     Transform transform;
 
-    Camera camera(glm::vec3(0, 0, -0.1f), 80.0f, (float)mainScreen.width / (float)mainScreen.height, 0.01f, 1000.0f);
-
-    float counter = 0.0f;
+    Camera camera(glm::vec3(0, 0, -0.3f), 70.0f, (float)mainScreen.width / (float)mainScreen.height, 0.01f, 1000.0f);
 
     while (!mainScreen.isClosed)
     {
         mainScreen.Clear(0.32f, 0.15f, 0.21f, 1.0f);
-
-
-        float sinCounter = sinf(counter);
-        float cosCounter = cosf(counter);
-
-
-        transform.position.x = sinCounter / 100;
-        transform.position.z = cosCounter / 100;
-        transform.rotation.x = counter * 10;
-        transform.rotation.y = counter * 10;
-        transform.rotation.z = counter * 10;
-
 
         shader.Bind();
         shader.Update(transform, camera);
@@ -65,9 +52,64 @@ int main()
 
         mainScreen.Update();
 
-        counter += 0.001f;
-        if (counter > 100.0f)
-            counter = 0.0f;
+        char c = getChar();
+
+        switch (c)
+        {
+        case '+':
+            transform.position.z -= 0.01;
+            break;
+
+        case '-':
+            transform.position.z += 0.01;
+            break;
+
+        case 'a':
+            transform.position.x -= 0.01;
+            break;
+
+        case 'd':
+            transform.position.x += 0.01;
+            break;
+
+        case 'w':
+            transform.position.y -= 0.01;
+            break;
+
+        case 's':
+            transform.position.y += 0.01;
+            break;
+
+        case 'q':
+            transform.rotation.y += 50;
+            break;
+        
+        case 'e':
+            transform.rotation.y -= 50;
+            break;
+
+        case 'i':
+            transform.rotation.x += 50;
+            break;
+
+        case 'k':
+            transform.rotation.x -= 50;
+            break;
+
+        case 'j':
+            transform.rotation.z += 50;
+            break;
+
+        case 'l':
+            transform.rotation.z -= 50; 
+            break;
+
+        case 'x':
+            return 0;
+
+        default:
+            break;
+        }
     }
 
     return 0;
