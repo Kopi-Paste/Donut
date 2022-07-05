@@ -13,6 +13,38 @@
 #include "Camera.hpp"
 #include "Statics.hpp"
 
+
+bool handleControls(Transform & transform, const Uint8 * keyboardState)
+{
+    if(keyboardState[SDL_SCANCODE_KP_PLUS])
+        transform.position.z -= 0.01;
+    if(keyboardState[SDL_SCANCODE_KP_MINUS])
+        transform.position.z += 0.01;
+    if(keyboardState[SDL_SCANCODE_A])
+        transform.position.x -= 0.01;
+    if(keyboardState[SDL_SCANCODE_D])
+        transform.position.x += 0.01;
+    if(keyboardState[SDL_SCANCODE_W])
+        transform.position.y -= 0.01;
+    if(keyboardState[SDL_SCANCODE_S])
+        transform.position.y += 0.01;
+    if(keyboardState[SDL_SCANCODE_Q])
+        transform.rotation.y += 50;
+    if(keyboardState[SDL_SCANCODE_E])
+        transform.rotation.y -= 50;
+    if(keyboardState[SDL_SCANCODE_I])
+        transform.rotation.x += 50;
+    if(keyboardState[SDL_SCANCODE_K])
+        transform.rotation.x -= 50;
+    if(keyboardState[SDL_SCANCODE_J])
+        transform.rotation.z += 50;
+    if(keyboardState[SDL_SCANCODE_L])
+        transform.rotation.z -= 50;
+    if(keyboardState[SDL_SCANCODE_X])
+        return false;
+    return true;
+}
+
 int main()
 {
     Display mainScreen(1240, 1080, "Donut");
@@ -52,6 +84,9 @@ int main()
 
         mainScreen.Update();
 
+        const Uint8 * state = SDL_GetKeyboardState(nullptr);
+
+        /*
         char c = getChar();
 
         switch (c)
@@ -110,6 +145,10 @@ int main()
         default:
             break;
         }
+        */
+
+        if (!handleControls(transform, state))
+            break;
     }
 
     return 0;
