@@ -1,6 +1,6 @@
 CXX=g++
 LD=g++
-CXXFLAGS=-Wall -pedantic -Wextra -std=c++17
+CXXFLAGS=-std=c++17
 LDFLAGS=-lGLEW -lSDL2 -lGL
 
 donut.out: Camera.o Display.o Main.o Shader.o Statics.o Mesh.o obj_loader.o Vertex.o stb_image.o Texture.o Transform.o
