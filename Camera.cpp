@@ -1,8 +1,7 @@
-#include "Camera.hpp"
-
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
+#include "Camera.hpp"
 
 Camera::Camera(const glm::vec3 & position_arg, float fov, float aspect, float zNear, float zFar)
 {

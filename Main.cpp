@@ -51,10 +51,6 @@ int main()
 
     Shader shader("./basicshader");
 
-    std::vector<Vertex> vertices = { Vertex(glm::vec3(-0.5, -0.5, 0), glm::vec2(0.0, 0.0)), Vertex(glm::vec3(0, 0.5, 0), glm::vec2(0.5, 1.0)), Vertex(glm::vec3(-0.5, 0.5, 0), glm::vec2(1.0, 0.0))};
-
-    std::vector<unsigned int> indicies = { 0, 1, 2};
-
     Mesh dough("dough.obj");
 
     Mesh icing("icing.obj");
@@ -85,67 +81,6 @@ int main()
         mainScreen.Update();
 
         const Uint8 * state = SDL_GetKeyboardState(nullptr);
-
-        /*
-        char c = getChar();
-
-        switch (c)
-        {
-        case '+':
-            transform.position.z -= 0.01;
-            break;
-
-        case '-':
-            transform.position.z += 0.01;
-            break;
-
-        case 'a':
-            transform.position.x -= 0.01;
-            break;
-
-        case 'd':
-            transform.position.x += 0.01;
-            break;
-
-        case 'w':
-            transform.position.y -= 0.01;
-            break;
-
-        case 's':
-            transform.position.y += 0.01;
-            break;
-
-        case 'q':
-            transform.rotation.y += 50;
-            break;
-        
-        case 'e':
-            transform.rotation.y -= 50;
-            break;
-
-        case 'i':
-            transform.rotation.x += 50;
-            break;
-
-        case 'k':
-            transform.rotation.x -= 50;
-            break;
-
-        case 'j':
-            transform.rotation.z += 50;
-            break;
-
-        case 'l':
-            transform.rotation.z -= 50; 
-            break;
-
-        case 'x':
-            return 0;
-
-        default:
-            break;
-        }
-        */
 
         if (!handleControls(transform, state))
             break;
